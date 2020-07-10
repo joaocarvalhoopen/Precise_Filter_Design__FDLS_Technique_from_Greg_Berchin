@@ -1,0 +1,2 @@
+filepath,filename,factor_num_of_interpolated_points,flag_interpolated,N_val,D_val,sample_rate   
+.\\input_freq_response\\,freq_response_book.csv,10,False,2,2,1000
