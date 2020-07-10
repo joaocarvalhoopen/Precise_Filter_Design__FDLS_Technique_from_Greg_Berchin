@@ -124,6 +124,58 @@ In here, we will have to choose the M, the number of data points (tuple) that we
 10. Test the filter frequency response with a chirp signal between the frequency limits. 
 
 
+## User manual
+
+* Configure the ./input_freq_response/config.csv file. <br>
+  Parameters from config.csv file:<br>
+     * filepath_freq_response <br>
+     * filename_freq_response <br>
+     * factor_num_of_interpolated_points <br>
+     * flag_interpolated <br>
+     * N_val <br>
+     * D_val <br>
+     * sample_rate <br>
+
+* Specify the frequency response file (./input_freq_response/freq_response.csv) configured in the previous file for each frequency (linear amplitude and phase shift). <br>
+  The file has the following structure: <br>
+  **frequency, amplitude (in linear scale), phase (in radians)** 
+
+* Run the program...
+
+
+```
+
+python precise_filter_design.py 
+
+```  
+
+* Change the signal test function, by uncommenting the plot's and comment the plot's that you don't want test. And run the program again. Then study the generated plot's.    
+
+## Output images
+
+Note: The input signal is before applying the filter and the output signal is after applying the filter. <br> <br>
+
+Book frequency response to N sinusoids of input signal in the time domain - 1 <br>
+![book_freq_resp_n_sinusoids_input_signal_time_domain_1](./images/book_freq_resp_n_sinusoids_input_signal_time_domain_1.png) <br>
+
+Book frequency response to N sinusoids of input signal in the frequency domain spectrum - 2 <br>
+![book_freq_resp_n_sinusoids_input_signal_spectrum_2](./images/book_freq_resp_n_sinusoids_input_signal_spectrum_2.png) <br>
+
+Book frequency response to N sinusoids of input signal in the frequency domain phase-shift - 3 <br>
+![book_freq_resp_n_sinusoids_input_signal_phase_3](./images/book_freq_resp_n_sinusoids_input_signal_phase_3.png) <br>
+
+Book frequency response to N sinusoids of output signal in the time domain - 4 <br>
+![book_freq_resp_n_sinusoids_output_signal_time_domain_4](./images/book_freq_resp_n_sinusoids_output_signal_time_domain_4.png) <br>
+
+Book frequency response to N sinusoids of output signal in the frequency domain spectrum - 5 (Note: Input signal doesn't have constant amplitude) <br>
+![book_freq_resp_n_sinusoids_output_signal_spectrum_5](./images/book_freq_resp_n_sinusoids_output_signal_spetrum_5.png) <br>
+
+This one is the result of a different test signal of noise in all range with constant amplitude but random phase. So one can see better the attenuation response of the filter. <br>
+![book_freq_resp_noise_output_signal_spectrum_5](./images/book_freq_resp_noise_output_signal_spectrum_5.png) <br>
+
+Book frequency response to N sinusoids of output signal in the frequency domain phase - 6 <br>
+![book_freq_resp_n_sinusoids_output_signal_phase_6](./images/book_freq_resp_n_sinusoids_output_signal_phase_6.png)<br>
+
 ## Glossary
 FIR filter - Finite Impulse Response filter 
 IIR filter - Infinite Impulse Response filter
