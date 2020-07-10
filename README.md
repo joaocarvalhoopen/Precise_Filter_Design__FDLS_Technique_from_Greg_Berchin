@@ -119,22 +119,22 @@ In here, we will have to choose the M, the number of data points (tuple) that we
 
 8. Calculate the Pseudo-Inverse the vector THETA. It will have the filter coefficients. Depending on the number chosen for N and D, a different type of filter topology will be made.
 
-9. Construct the filter.
+9. Generate the filter in Python and the C programming language, ".H" source code of the filter file with the name "custom_filter.h".
 
-10. Test the filter frequency response with a chirp signal between the frequency limits. 
+10. Test the filter frequency response with a chirp signal, a N sinusoidals signal, and a noise signal between frequency A and frequency Bl between the frequency limits. 
 
 
 ## User manual
 
 * Configure the ./input_freq_response/config.csv file. <br>
   Parameters from config.csv file:<br>
-     * filepath_freq_response <br>
-     * filename_freq_response <br>
-     * factor_num_of_interpolated_points <br>
-     * flag_interpolated <br>
-     * N_val <br>
-     * D_val <br>
-     * sample_rate <br>
+     * **filepath_freq_response** = .\\\\input_freq_response\\\\<br>
+     * **filename_freq_response** = freq_response_book.csv <br>
+     * **factor_num_of_interpolated_points** = 10 <br>
+     * **flag_interpolated** = False <br>
+     * **N_val** = 2   (Note: The **degree of the polynomial numerator** of the transfer function of the filter.)<br>
+     * **D_val** = 2   (Note: The **degree of the polynomial denominator** of the transfer function of the filter.)<br>
+     * **sample_rate** = 1000 <br>
 
 * Specify the frequency response file (./input_freq_response/freq_response.csv) configured in the previous file for each frequency (linear amplitude and phase shift). <br>
   The file has the following structure: <br>

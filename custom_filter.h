@@ -1,5 +1,5 @@
-#ifndef CUSTOM_FILTER_H
-#define CUSTOM_FILTER_H
+#ifndef CUSTOM_FILTER_H_
+#define CUSTOM_FILTER_H_
 
 //generated_C_.h_source_code_filter_file
 

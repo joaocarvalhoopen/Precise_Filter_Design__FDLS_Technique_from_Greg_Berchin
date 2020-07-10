@@ -1006,7 +1006,7 @@ if __name__ == "__main__":
         return out_sequence
 
 
-    def our_filter_generic(a_D_coef, b_N_coef, in_sequence):
+    def our_filter_generic(a_D_coef, b_N_coef, in_sequence, generate_C_filter_file = False):
         # Makes a generic filter from the list of coefficients.
 
         out_sequence = []
@@ -1038,7 +1038,8 @@ if __name__ == "__main__":
             out_sequence.insert(0, out)
 
         # Generate the C output file.
-        write_src_code_to_file(a_D_coef, b_N_coef)
+        if generate_C_filter_file == True:
+            write_src_code_to_file(a_D_coef, b_N_coef)
 
         return out_sequence
 
@@ -1047,6 +1048,7 @@ if __name__ == "__main__":
         filepath = ".\\"
         dot_H_file_name = "custom_filter.h"
         src_code = generate_C_source_code_filter_file(a_D_coef, b_N_coef, dot_H_file_name)
+        print("\n\n")
         print(src_code)
         with open(filepath + dot_H_file_name, "w") as f:
             f.write(src_code)
@@ -1058,10 +1060,9 @@ if __name__ == "__main__":
         a_D = a_D_coef
         b_N = b_N_coef
 
-
         # .H guard
-        src_code =  "#ifndef %s_H\n"    % (dot_H_file_name[:-2].upper())
-        src_code += "#define %s_H\n\n" % (dot_H_file_name[:-2].upper())
+        src_code =  "#ifndef %s_H_\n"    % (dot_H_file_name[:-2].upper())
+        src_code += "#define %s_H_\n\n"  % (dot_H_file_name[:-2].upper())
         
         src_code += '''//generated_C_.h_source_code_filter_file\n\n\n''' 
 
@@ -1113,15 +1114,20 @@ if __name__ == "__main__":
         
         return src_code
 
+
     #######
     # 10. Test the filter frequency response with a simples signal impulse. 
         
     in_sequence = [0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
     # out_sequence = our_filter(a_D_filter_coef, b_N_filter_coef, in_sequence)
-    out_sequence = our_filter_generic(a_D_filter_coef, b_N_filter_coef, in_sequence)
+    generate_C_filter_file = True
+    out_sequence = our_filter_generic(a_D_filter_coef, b_N_filter_coef, in_sequence, generate_C_filter_file)
+    generate_C_filter_file = False
 
+    print("\n\nImpulse signal response")
     print("in_sequence: ",  in_sequence)
     print("out_sequence: ", out_sequence)
+    print("\n")
 
 
     #######
@@ -1134,12 +1140,13 @@ if __name__ == "__main__":
     end_freq       = 500.0
     chirp_duration = 1.00
     t, s, len_s = generate_chirp(sample_rate, chirp_duration, start_freq, end_freq)
+    
     # plot_chirp(t, s, start_freq, end_freq)
     # plot_spectrum(t, s, sample_rate)    
 
     in_sequence = s.tolist()
     # out_sequence = our_filter(a_D_filter_coef, b_N_filter_coef, in_sequence)
-    out_sequence = our_filter_generic(a_D_filter_coef, b_N_filter_coef, in_sequence)
+    out_sequence = our_filter_generic(a_D_filter_coef, b_N_filter_coef, in_sequence, generate_C_filter_file)
 
     s_new = np.array(out_sequence)
 
@@ -1157,17 +1164,18 @@ if __name__ == "__main__":
     amplitude_list  = [1.0  for freq in range(0, int(sample_rate / 2.0), 10)]
     signal_duration = 10
     t, s, len_s = generate_N_sines(sample_rate, signal_duration, freq_list, phase_list, amplitude_list)
-    # plot_N_sines(t, s, freq_list, phase_list)
-    # ampli_buffer_prev, phase_buffer_prev = plot_spectrum(t, s, sample_rate)
+    
+    plot_N_sines(t, s, freq_list, phase_list)
+    ampli_buffer_prev, phase_buffer_prev = plot_spectrum(t, s, sample_rate)
 
     in_sequence = s.tolist()
     # out_sequence = our_filter(a_D_filter_coef, b_N_filter_coef, in_sequence)
-    out_sequence = our_filter_generic(a_D_filter_coef, b_N_filter_coef, in_sequence)
+    out_sequence = our_filter_generic(a_D_filter_coef, b_N_filter_coef, in_sequence, generate_C_filter_file)
 
     s_new = np.array(out_sequence)
 
-    # plot_chirp(t, s_new, start_freq, end_freq)
-    # plot_spectrum(t, s_new, sample_rate, ampli_buffer_prev, phase_buffer_prev)
+    plot_chirp(t, s_new, start_freq, end_freq)
+    plot_spectrum(t, s_new, sample_rate, ampli_buffer_prev, phase_buffer_prev)
 
 
     #######
@@ -1179,13 +1187,14 @@ if __name__ == "__main__":
     stop_freq       = 500.0
     signal_duration = 1
     t, s, len_s = generate_noise(sample_rate, signal_duration, start_freq, stop_freq)
+    
     # plot_noise(t, s, start_freq, stop_freq)
     # ampli_buffer_prev, phase_buffer_prev = plot_spectrum(t, s, sample_rate)
 
  
     in_sequence = s.tolist()
     # out_sequence = our_filter(a_D_filter_coef, b_N_filter_coef, in_sequence)
-    out_sequence = our_filter_generic(a_D_filter_coef, b_N_filter_coef, in_sequence)
+    out_sequence = our_filter_generic(a_D_filter_coef, b_N_filter_coef, in_sequence, generate_C_filter_file)
 
     s_new = np.array(out_sequence)
 
